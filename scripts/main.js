@@ -1,1 +1,1 @@
-console.warn('tets');
+import './commands-builder/index';
