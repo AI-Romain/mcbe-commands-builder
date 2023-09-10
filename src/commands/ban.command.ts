@@ -1,4 +1,4 @@
-import { Player, world } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import Command from "commands-builder/command";
 
 export default class BanCommand extends Command {

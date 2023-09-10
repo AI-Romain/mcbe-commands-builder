@@ -1,8 +1,9 @@
 import { ChatSendBeforeEvent, ChatSendBeforeEventSignal, Player, world } from '@minecraft/server';
 import Command from './command';
+import { COMMANDS_CONFIG } from './commands.config';
 
 export default class CommandsEventHandler {
-	private static prefixes: Array<string> = ['!', '?'];
+	private static prefixes: Array<string> = COMMANDS_CONFIG.prefixes;
 	private static registeredCommands: Array<Command> = [];
 
 	private static event: any = world.beforeEvents.chatSend.subscribe((data) => CommandsEventHandler.onChat(data));
@@ -43,6 +44,10 @@ export default class CommandsEventHandler {
 				},
 			],
 		});
+	}
+
+	public static getCommands() : Array<Command> {
+		return CommandsEventHandler.registeredCommands
 	}
 
 	public static formatMessage(message: string): string {

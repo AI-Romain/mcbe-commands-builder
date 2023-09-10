@@ -1,4 +1,5 @@
 import { world } from '@minecraft/server';
+import { COMMANDS_CONFIG } from './commands.config';
 class CommandsEventHandler {
     static onChat(data) {
         let [sender, message] = [data.sender, data.message];
@@ -29,6 +30,9 @@ class CommandsEventHandler {
             ],
         });
     }
+    static getCommands() {
+        return CommandsEventHandler.registeredCommands;
+    }
     static formatMessage(message) {
         return message.replace(new RegExp(`[${CommandsEventHandler.prefixes.join('')}]`, ''), '');
     }
@@ -36,7 +40,7 @@ class CommandsEventHandler {
         CommandsEventHandler.registeredCommands.push(command);
     }
 }
-CommandsEventHandler.prefixes = ['!', '?'];
+CommandsEventHandler.prefixes = COMMANDS_CONFIG.prefixes;
 CommandsEventHandler.registeredCommands = [];
 CommandsEventHandler.event = world.beforeEvents.chatSend.subscribe((data) => CommandsEventHandler.onChat(data));
 export default CommandsEventHandler;
