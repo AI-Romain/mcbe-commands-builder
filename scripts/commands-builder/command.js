@@ -1,8 +1,7 @@
-import CommandsEventHandler from "./commands.event.handler";
+import CommandsEventHandler from './commands.event.handler';
 export default class Command {
     constructor() {
         CommandsEventHandler.addCommand(this);
     }
-    onExecute(sender, args) {
-    }
+    onExecute(sender, args) { }
 }

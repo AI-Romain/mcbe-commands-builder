@@ -1,4 +1,4 @@
-import { ChatSendBeforeEvent, ChatSendBeforeEventSignal, world } from '@minecraft/server';
+import { ChatSendBeforeEvent, ChatSendBeforeEventSignal, Player, world } from '@minecraft/server';
 import Command from './command';
 
 export default class CommandsEventHandler {
@@ -7,25 +7,49 @@ export default class CommandsEventHandler {
 
 	private static event: any = world.beforeEvents.chatSend.subscribe((data) => CommandsEventHandler.onChat(data));
 
-	private static onChat(data: ChatSendBeforeEvent) {
+	private static onChat(data: ChatSendBeforeEvent): void {
 		let [sender, message] = [data.sender, data.message];
 
 		if (!CommandsEventHandler.prefixes.some((prefix) => message.startsWith(prefix))) return;
 		data.cancel = true;
 
-		message = message.replace(new RegExp(`[${CommandsEventHandler.prefixes.join('')}]`, ''), '');
+		const [commandName, ...args] = CommandsEventHandler.formatMessage(message).split(' ');
 
-		const [commandName, ...args] = message.split(' ');
+		const command = CommandsEventHandler.getCommand(commandName);
 
-		for (const command of CommandsEventHandler.registeredCommands) {
-			if (commandName !== command.name) continue;
+		if (!command) return CommandsEventHandler.errorMessage(sender, 'commands.generic.unknown', commandName);
 
-			if (command.permissions && !command.permissions.every(perm => sender.hasTag(perm)))
-                sender.sendMessage('§cYou don\'t have the permission to execute this command!')
-		}
+		if (command.permissions && !command.permissions.every((perm) => sender.hasTag(perm)))
+			return CommandsEventHandler.errorMessage(sender, 'commands.tp.permission');
+
+		command.onExecute(sender, args);
+	}
+
+	private static getCommand(name: string): Command {
+		return CommandsEventHandler.registeredCommands.find(
+			(command) => command.name.toLowerCase() === name.toLowerCase() || command.alliases?.includes(name.toLowerCase())
+		);
+	}
+
+	private static errorMessage(player: Player, translate: string, fill?: string): void {
+		player.sendMessage({
+			rawtext: [
+				{
+					text: '§c',
+				},
+				{
+					translate: translate,
+					with: [`§c${fill}§c`],
+				},
+			],
+		});
+	}
+
+	public static formatMessage(message: string): string {
+		return message.replace(new RegExp(`[${CommandsEventHandler.prefixes.join('')}]`, ''), '');
 	}
 
 	public static addCommand(command: Command): void {
-		this.registeredCommands.push(command);
+		CommandsEventHandler.registeredCommands.push(command);
 	}
 }

@@ -1,31 +1,25 @@
-import { Player, world } from "@minecraft/server";
-import CommandsEventHandler from "./commands.event.handler";
+import { Player, world } from '@minecraft/server';
+import CommandsEventHandler from './commands.event.handler';
 
-export type TArgs = {
-    [argsName : string] : {
-        error : (arg : string, args : Array<string>) => string,
-        require : (arg : string, args : Array<string>) => boolean,
-        map ?: (arg : string, args : Array<string>) => void,
-    }
-}
+export type Tcommand = {
+	name: string;
+	description?: string;
+	alliases?: Array<string>;
+	permissions: Array<string>;
+	onExecute: (sender: Player, args: Array<string>) => void;
+};
 
-export default class Command {
+export default class Command implements Tcommand {
+	public readonly name: string;
+	public readonly description: string;
+	public readonly alliases: Array<string>;
 
-    public name : string
-    public description : string
-    public alliases : Array<string>
+	// TAG NEEDED TO EXECUTE THE COMMAND
+	public readonly permissions: Array<string>;
 
-    // TAG NEEDED TO EXECUTE THE COMMAND
-    public permissions : Array<string>
+	constructor() {
+		CommandsEventHandler.addCommand(this);
+	}
 
-    protected args : TArgs
-
-    constructor () {
-        CommandsEventHandler.addCommand(this)
-    }
-
-    protected onExecute(sender : Player, args : Array<string>) : void {
-        
-    }
-
+	public onExecute(sender: Player, args: Array<string>): void {}
 }
