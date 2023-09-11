@@ -1,4 +1,4 @@
-import Command from "commands-builder/command";
+import Command from 'commands-builder/command';
 export default class BanCommand extends Command {
     constructor() {
         super(...arguments);

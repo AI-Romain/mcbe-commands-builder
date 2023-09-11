@@ -1,0 +1,20 @@
+{
+	"format_version": 2,
+	"metadata": { "authors": ["JustRomain"] },
+	"header": {
+		"name": "Main > mcbe-command-builder | 25-0-0",
+		"description": "",
+		"min_engine_version": [1, 20, 10],
+		"uuid": "ff2359ad-fe33-4589-a3c1-1d20cd9a3d3b",
+		"version": [25, 0, 0]
+	},
+	"modules": [
+		{ "type": "data", "uuid": "2641aad1-a7b4-41e2-bd1d-84c37ee29bd3", "version": [1, 0, 0] },
+		{ "type": "script", "language": "javascript", "uuid": "e7101999-9082-4e50-b6e3-70ce9d49e5f2", "entry": "scripts/main.js", "version": [1, 0, 0] }
+	],
+	"dependencies": [
+		{ "uuid": "bbd5965c-dd5a-498f-afa6-dac2d6c70d21", "version": [1, 0, 0] },
+		{ "module_name": "@minecraft/server", "version": "1.4.0-beta" },
+		{ "module_name": "@minecraft/server-ui", "version": "1.2.0-beta" }
+	]
+}

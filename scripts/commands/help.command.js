@@ -1,6 +1,6 @@
-import Command from './command';
-import { COMMANDS_CONFIG } from './commands.config';
-import CommandsEventHandler from './commands.event.handler';
+import Command from '../commands-builder/command';
+import { COMMANDS_CONFIG } from '../commands-builder/commands.config';
+import CommandsEventHandler from '../commands-builder/commands.event.handler';
 export default class HelpCommand extends Command {
     constructor() {
         super(...arguments);
