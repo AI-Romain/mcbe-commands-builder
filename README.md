@@ -20,7 +20,7 @@ import Command from "commands-builder/command";
 export default class BanCommand extends Command {
 
     public readonly name : string = 'ban'
-    public readonly  description : string
+    public readonly  description : string = 'This is a ban command!'
     public readonly  alliases : Array<string> = ['b']
 
     // TAG NEEDED TO EXECUTE THE COMMAND
