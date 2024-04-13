@@ -6,12 +6,14 @@ export default class Command {
 	public readonly description: string;
 	public readonly alliases: Array<string>;
 
+	public readonly operatorOnly: boolean = true;
+
 	constructor() {
 		this.register();
 	}
 
-	// TAG NEEDED TO EXECUTE THE COMMAND
-	public readonly permissions: Array<string>;
+	// TAG NEEDED TO EXECUTE THIS COMMAND
+	public readonly permissions: Array<string> = [];
 
 	public onExecute(sender: Player, args: Array<string>): void {}
 

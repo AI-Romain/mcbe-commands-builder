@@ -1,4 +1,4 @@
-./node_modules
-./scripts
+node_modules/*
+scripts/
 ./.vscode
 ./manifest.json

@@ -5,6 +5,7 @@ export default class BanCommand extends Command {
         this.name = 'ban';
         this.description = 'This is a ban command!';
         this.alliases = ['b'];
+        this.operatorOnly = true;
         // TAG NEEDED TO EXECUTE THE COMMAND
         this.permissions = ['admin', 'moderator'];
     }

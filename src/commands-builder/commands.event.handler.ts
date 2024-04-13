@@ -1,4 +1,4 @@
-import { ChatSendBeforeEvent, ChatSendBeforeEventSignal, Player, world } from '@minecraft/server';
+import { ChatSendBeforeEvent, Player, world } from '@minecraft/server';
 import Command from './command';
 import { COMMANDS_CONFIG } from './commands.config';
 
@@ -9,7 +9,7 @@ export default class CommandsEventHandler {
 	private static event: (data: ChatSendBeforeEvent) => void = world.beforeEvents.chatSend.subscribe((data) => CommandsEventHandler.onChat(data));
 
 	private static onChat(data: ChatSendBeforeEvent): void {
-		let [sender, message] = [data.sender, data.message];
+		const { sender, message } = data;
 
 		if (!CommandsEventHandler.prefixes.some((prefix) => message.startsWith(prefix))) return;
 		data.cancel = true;
@@ -18,7 +18,8 @@ export default class CommandsEventHandler {
 		const command = CommandsEventHandler.getCommand(commandName);
 
 		if (!command) return CommandsEventHandler.errorMessage(sender, 'commands.generic.unknown', commandName);
-		if (command.permissions && !command.permissions.every((perm: string) => sender.hasTag(perm)))
+
+		if ((command.permissions && !command.permissions.every((perm: string) => sender.hasTag(perm))) || (command.operatorOnly && !sender.isOp()))
 			return CommandsEventHandler.errorMessage(sender, 'commands.tp.permission');
 
 		command.onExecute(sender, args);
