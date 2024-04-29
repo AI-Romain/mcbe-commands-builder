@@ -47,5 +47,3 @@ export default class HelpCommand extends Command {
 		return res;
 	}
 }
-
-new HelpCommand();

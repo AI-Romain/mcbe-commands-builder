@@ -7,7 +7,7 @@ export default class BanCommand extends Command {
 	public readonly alliases: Array<string> = ['b'];
 
 	public readonly operatorOnly: boolean = true;
-	
+
 	// TAG NEEDED TO EXECUTE THE COMMAND
 	public readonly permissions: Array<string> = ['admin', 'moderator'];
 
@@ -15,5 +15,4 @@ export default class BanCommand extends Command {
 		sender.sendMessage(`§cYou banned ${args.join(' ')}!`);
 	}
 }
-
-new BanCommand();
+new BanCommand()
