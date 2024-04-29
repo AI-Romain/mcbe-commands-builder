@@ -1,4 +1,4 @@
 export const REGISTERED_COMMANDS = [
-    'ban.command',
-    'help.command',
+    './ban.command',
+    '/help.command',
 ]
