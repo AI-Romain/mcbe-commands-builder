@@ -31,14 +31,15 @@ export default class BanCommand extends Command {
     }
 
 }
-
-new BanCommand()
 ```
 
-To finish, each time you create a new command in a new file, you need to register the file like so:
+To finish, each time you create a new command in a new file, you need to register the file path like so:
 file : ```./commands-builder/commands.register.ts```
 ```ts
-import '../commands/ban.command'
+export const REGISTERED_COMMANDS = [
+    './ban.command', // path in the curretn directory (ex : "./admin/ban.command" or "/admin/claim-command" or "shop-command")
+    '/help.command',
+]
 ```
 
 # Command Settings Explained
