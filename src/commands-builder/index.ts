@@ -1,7 +1,7 @@
 import { REGISTERED_COMMANDS } from 'commands/commands.register';
 import './commands.event.handler';
 
-async function loader() {
+async function registeredCommandsLoader() {
 	for (const path of REGISTERED_COMMANDS) {
 		try {
 			const module = await import(`../commands/${path}`);
@@ -13,4 +13,4 @@ async function loader() {
 	}
 }
 
-loader();
+registeredCommandsLoader();
