@@ -23,6 +23,8 @@ export default class BanCommand extends Command {
     public readonly  description : string = 'This is a ban command!'
     public readonly  alliases : Array<string> = ['b']
 
+    public readonly operatorOnly: boolean = true;
+
     // TAG NEEDED TO EXECUTE THE COMMAND
     public readonly  permissions : Array<string> = ['admin', 'moderator']
 
