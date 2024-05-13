@@ -8,16 +8,8 @@ export default class Command {
 
 	public readonly operatorOnly: boolean = true;
 
-	constructor() {
-		this.register();
-	}
-
 	// TAG NEEDED TO EXECUTE THIS COMMAND
 	public readonly permissions: Array<string> = [];
 
 	public onExecute(sender: Player, args: Array<string>): void {}
-
-	private register() {
-		CommandsEventHandler.addCommand(this);
-	}
 }

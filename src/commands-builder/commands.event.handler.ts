@@ -1,4 +1,4 @@
-import { ChatSendBeforeEvent, Player, world } from '@minecraft/server';
+import { ChatSendBeforeEvent, Player, system, world } from '@minecraft/server';
 import Command from './command';
 import { COMMANDS_CONFIG } from './commands.config';
 
@@ -22,7 +22,7 @@ export default class CommandsEventHandler {
 		if ((command.permissions && !command.permissions.every((perm: string) => sender.hasTag(perm))) || (command.operatorOnly && !sender.isOp()))
 			return CommandsEventHandler.errorMessage(sender, 'commands.tp.permission');
 
-		command.onExecute(sender, args);
+		system.run(() => command.onExecute(sender, args))
 	}
 
 	private static formatMessage(message: string): string {
