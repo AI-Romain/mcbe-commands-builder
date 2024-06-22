@@ -13,4 +13,3 @@ export default class BanCommand extends Command {
         sender.sendMessage(`§cYou banned ${args.join(' ')}!`);
     }
 }
-new BanCommand();
